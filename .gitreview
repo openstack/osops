@@ -1,4 +1,4 @@
 [gerrit]
-host=review.openstack.org
+host=review.opendev.org
 port=29418
-project=openstack/osops-tools-monitoring.git
+project=x/osops-tools-monitoring.git
