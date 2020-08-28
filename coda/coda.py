@@ -12,79 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Code that is specific to Coda.
+"""Settings for the coda panel.
 
-Methods that aren't specific to an OpenStack API go here.
+There may be a better way or place to do this but for now this works
+so I'm rolling with it.
 """
 
+CODA_USERNAME = "coda_admin"
+CODA_TENANT_NAME = "coda_admin"
+CODA_TENANT_ID = "coda_project_id"
+CODA_PASSWORD = "coda_pw"
+CODA_AUTH_URL = "http://127.0.0.1:5000/v2.0/"
+CODA_KEYSTONE_URL = "http://10.23.214.201:35357/v2.0/"
 
-from django.conf import settings
-from django.core.cache import cache
-from openstack_dashboard.dashboards.coda.coda import keystone
+CODA_AUTH_URL_KEY = "CODA_AUTH_URL"
+NOVA_ADMIN_URL_KEY = "NOVA_ADMIN_URL"
+NEUTRON_ADMIN_URL_KEY = "NEUTRON_ADMIN_URL"
+CINDER_ADMIN_URL_KEY = "CINDER_ADMIN_URL"
+GLANCE_ADMIN_URL_KEY = "GLANCE_ADMIN_URL"
 
-CODA_CACHE = 'coda_cache'
+CODA_BLACK_LIST = ["00000000001001", "15420898376896"]
 
-
-def get_coda_regions():
-    """Return a list of regions for the Coda installation."""
-    return settings.CODA_URL_MAP.keys()
-
-
-def get_auth_token():
-    """Abstract getting the Coda auth token from cache or API as needed."""
-    coda_cache = {}
-
-    if cache.get(CODA_CACHE) is not None:
-        coda_cache = cache.get(CODA_CACHE)
-
-    if 'coda_token' not in coda_cache:
-        coda_token = keystone.get_coda_token()
-        coda_cache['coda_token'] = coda_token
-        # keep for an hour
-        cache.set('coda_cache', coda_cache, 3600)
-    else:
-        coda_token = coda_cache['coda_token']
-
-    return coda_token
-
-
-def fill_image_info(instances, images):
-    """Use image dict to fill in image name for instances."""
-    for user_id in instances:
-        for instance in instances[user_id]:
-            if images is None:
-                instance['image']['name'] = "Image Info Unavailable"
-            else:
-                for image in images:
-                    if image['id'] == instance['image']['id']:
-                        instance['image']['name'] = image['name']
-                        break
-
-                if 'name' not in instance['image']:
-                    instance['image']['name'] = "Error Getting Image Info"
-
-    return instances
-
-
-def fill_volume_info(volumes, snapshots, backups):
-    """Unify volume, snapshot, and backup in a single dict."""
-
-    print backups
-    for volume in volumes:
-        volume['snapshots'] = []
-        volume['backups'] = []
-
-        for snapshot in snapshots:
-            if snapshot['volume_id'] == volume['id']:
-                volume['snapshots'].append(snapshot)
-
-        for backup in backups:
-            if backup['volume_id'] == volume['id']:
-                volume['backups'].append(backup)
-
-    return volumes
-
-
-def is_project_black_listed(project_id):
-    """Check if a project ID is blacklisted (i.e. shouldn't be cleaned)."""
-    return project_id in settings.CODA_BLACK_LIST
+CODA_URL_MAP = {
+    "region-a": {
+        "CODA_AUTH_URL": "http://127.0.0.1:35357/v2.0/",
+        "NOVA_ADMIN_URL": "http://127.0.0.1:8774/v2",
+        "NEUTRON_ADMIN_URL": "http://127.0.0.1:9696/v2.0",
+        "CINDER_ADMIN_URL": "http://127.0.0.1:8776/v2",
+        "GLANCE_ADMIN_URL": "http://127.0.0.1:9292/v2",
+    },
+    # "region-b": {
+    #     "CODA_AUTH_URL": "https://127.0.0.1:35357/v2.0/",
+    #     "NOVA_ADMIN_URL": "https://127.0.0.1/v2",
+    #     "NEUTRON_ADMIN_URL": "https://127.0.0.1/v2.0",
+    #     "CINDER_ADMIN_URL": "https://127.0.0.1:8776/v1",
+    #     "GLANCE_ADMIN_URL": "https://127.0.0.1:9292/v1.0",
+    # },
+}
