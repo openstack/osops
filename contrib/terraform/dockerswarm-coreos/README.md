@@ -4,7 +4,7 @@ Provision a Docker Swarm cluster with [Terraform](https://www.terraform.io) on O
 
 ## Status
 
-This will install a fully HA docker swarm cluster on an Openstack Cloud. It is tested on a OpenStack Cloud provided by [BlueBox](https://www.blueboxcloud.com/) and should work on most modern installs of OpenStack that support the basic services.
+This will install a fully HA docker swarm cluster on an Openstack Cloud. It is tested on an OpenStack Cloud provided by [BlueBox](https://www.blueboxcloud.com/) and should work on most modern installs of OpenStack that support the basic services.
 
 It also supports overlay networks using the `docker network` command, see documentation below.
 

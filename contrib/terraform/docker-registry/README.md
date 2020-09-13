@@ -4,7 +4,7 @@ Provision a Docker Registry with [Terraform](https://www.terraform.io) on Openst
 
 ## Status
 
-This will install a Docker Registry on an Openstack Cloud. It is tested on a OpenStack Cloud provided by [BlueBox](https://www.blueboxcloud.com/) and should work on most modern installs of OpenStack.
+This will install a Docker Registry on an Openstack Cloud. It is tested on an OpenStack Cloud provided by [BlueBox](https://www.blueboxcloud.com/) and should work on most modern installs of OpenStack.
 
 By default the instance(s) will be booted up with only ephemeral storage. You can enable the swift backend with the terraform variable `docker_registry_storage_backend`.  You will also need to pass through swift credentials as described later.
 
