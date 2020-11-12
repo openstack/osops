@@ -8,7 +8,11 @@ improved, and used as a starting point to customize for your own specific
 deployment.
 
 For more details on how to contribute, please follow the Gerrit git-review
-process described at http://docs.openstack.org/infra/manual/developers.html .
+process described at
+https://docs.openstack.org/contributors/code-and-documentation/quick-start.html.
+
+If you need some additional help or have questions getting your patches pushed,
+please reach out to anyone in the First Contact SIG! https://wiki.openstack.org/wiki/First_Contact_SIG
 
 This repo is maintained by the OpenStack Operation Docs and Tooling  Special
 Interest Group (SIG). All work is voluntary by members of the community, and
