@@ -2,7 +2,9 @@
 
 source ~/openrc
 
-keystone token-get 2>&1 > /dev/null
+
+
+openstack token issue 2>&1 > /dev/null
 if [ $? == 0 ]; then
     echo "OK - Got a Keystone token."
     exit 0
