@@ -67,14 +67,14 @@ while true; do
     esac
 done
 
-limits=`sudo /sbin/rabbitmqctl status | grep file_descriptors -A 4`
+limits=`sudo /sbin/rabbitmqctl status | grep "File Descriptors" -A 4`
 [ $? -ne 0 ] && echo "rabbitmqctl status command failed" && exit $STATE_UNKNOWN
 
-total_limit=`echo ${limits} | grep total_limit | sed -r 's/^.+total_limit,([[:digit:]]+).*$/\1/'`
-total_used=`echo ${limits} | grep total_used | sed -r 's/^.+total_used,([[:digit:]]+).*$/\1/'`
+total_limit=`echo ${limits} | grep Total | sed -r 's/^.+limit: ([[:digit:]]+).*$/\1/'`
+total_used=`echo ${limits} | grep Total | sed -r 's/^.+Total: ([[:digit:]]+).*$/\1/'`
 
-sockets_limit=`echo ${limits} | grep sockets_limit | sed -r 's/^.+sockets_limit,([[:digit:]]+).*$/\1/'`
-sockets_used=`echo ${limits} | grep sockets_used | sed -r 's/^.+sockets_used,([[:digit:]]+).*$/\1/'`
+sockets_limit=`echo ${limits} | grep Sockets | sed -r 's/^.+limit: ([[:digit:]]+).*$/\1/'`
+sockets_used=`echo ${limits} | grep Sockets | sed -r 's/^.+Sockets: ([[:digit:]]+).*$/\1/'`
 
 total_pct=`echo \( $total_used/$total_limit \) \* 100 | bc -l | awk '{printf "%3.2f", $0}'`
 sockets_pct=`echo \( $sockets_used/$sockets_limit \) \* 100 | bc -l | awk '{printf "%3.2f", $0}'`
