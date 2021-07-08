@@ -35,7 +35,7 @@ Here are some useful resources and links to help you get involved:
 * OpenStack architecture design guide: http://docs.openstack.org/arch-design/content/
 * OpenStack security guide: https://docs.openstack.org/security-guide/
 * OpenStack-Discuss mailing list: http://lists.openstack.org/cgi-bin/mailman/listinfo/openstack-discuss
-* OpenStack Operators IRC channel: https://webchat.freenode.net/ in #openstack-operators
+* OpenStack Operators IRC channel: https://webchat.oftc.net/ in #openstack-operators
 
 History
 -------
